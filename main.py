@@ -1,4 +1,4 @@
-from PyQt5.uic import loadUiType
+# from PyQt5.uic import loadUiType
 import sys
 from os import path
 from PyQt5 import QtCore
@@ -9,12 +9,12 @@ import form
 import Scanner
 import cv2
 
-FORM_CLASS, _ = loadUiType(path.join(path.dirname(__file__), "gui.ui"))
+# FORM_CLASS, _ = loadUiType(path.join(path.dirname(__file__), "gui.ui"))
 front_addr = ''
 back_addr = ''
 
 
-class MainApp(QMainWindow, FORM_CLASS):
+class MainApp(QMainWindow):
 
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
@@ -67,27 +67,27 @@ class MainApp(QMainWindow, FORM_CLASS):
 
 
 def main():
-    # app = QApplication(sys.argv)
-    # window = MainApp()
-    from ArabicOcr import arabicocr
-
-    image_path = 'temp_front.jpg'
-    out_image = 'out.jpg'
-    results = arabicocr.arabic_ocr(image_path, out_image)
-    print(results)
-    words = []
-    for i in range(len(results)):
-        word = results[i][1]
-        words.append(word)
-    with open('file.txt', 'w', encoding='utf-8') as myfile:
-        myfile.write(str(words))
-    import cv2
-    img = cv2.imread('out.jpg', cv2.IMREAD_UNCHANGED)
-    cv2.imshow("arabic ocr", img)
-    cv2.waitKey(0)
+    app = QApplication(sys.argv)
+    window = MainApp()
+    # from ArabicOcr import arabicocr
+    #
+    # image_path = 'temp_front.jpg'
+    # out_image = 'out.jpg'
+    # results = arabicocr.arabic_ocr(image_path, out_image)
+    # print(results)
+    # words = []
+    # for i in range(len(results)):
+    #     word = results[i][1]
+    #     words.append(word)
+    # with open('file.txt', 'w', encoding='utf-8') as myfile:
+    #     myfile.write(str(words))
+    # import cv2
+    # img = cv2.imread('out.jpg', cv2.IMREAD_UNCHANGED)
+    # cv2.imshow("arabic ocr", img)
+    # cv2.waitKey(0)
 
     # window.show()
-    #
+
     # sys.exit(app.exec_())
 
 

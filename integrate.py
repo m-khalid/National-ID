@@ -27,17 +27,21 @@ def front_read(front_src):
 	address = im_bw[300:450, 400:1000]
 	ID = im_bw[500:560,400:1000]
 	# Reading the splitted images
+
 	name=image_to_string(Name,lang="ara")
 	add=image_to_string(address,lang="ara")
-	IDNumber=image_to_string(ID,lang="hin")
-	print((IDNumber))
+	# IDNumber=image_to_string(ID,lang="hin")
+	# lines = pytesseract.image_to_data(ID, lang='ara', config=tessdata_dir_config)
+	IDNumber=get_numbers(ID)
+
+	# print((IDNumber))
 	IDNumber= ''.join(IDNumber.split())
 	
 	#Calculate the birth date
-	if IDNumber[0]=='2': 
-		year = '19' + IDNumber[1:3]
+	if IDNumber[0]=='٢':
+		year = '١٩' + IDNumber[1:3]
 	else:
-		year = '20' + IDNumber[1:3]
+		year = '٢٠' + IDNumber[1:3]
 	month = IDNumber[3:5]
 	day = IDNumber[5:7]
 	BDate = year + '/' + month + '/'+ day
@@ -98,8 +102,13 @@ def back_read(source_image):
 	global IDNumber
 
 	job = crop(230,70,820,140,'job',img_binary,text_all)
+	job=job.replace("\n","")
+	job=job.replace("\x0c","")
 	# job2 represents the place of work
 	job2 = crop(230,125,820,190,'job2',img_binary,text_all)
+	job2=job2.replace("\n","")
+	job2=job2.replace("\x0c","")
+
 	#gender = crop(700,180,820,260,'gender',img_binary,text_all)
 	gender = gn.gen(IDNumber)
 	religion = crop(480,180,760,260,'religion',img_binary,text_all)
@@ -107,3 +116,23 @@ def back_read(source_image):
 	a3zb = crop(200,180,570,260,'a3zb',img_binary,text_all)
 	# husband name in case of women
 	husband = crop(200,225,820,290,'husband',img_binary,text_all)
+
+
+
+
+
+def get_numbers(ID):
+	import pytesseract
+	# img = get_convert_image(im, threshold)
+	tessdata_dir_config = r'--tessdata-dir "/home/mohamed/Downloads/National-ID-card-reader-master"'
+
+	# tessdata_dir_config = r'--tessdata-dir "/home/frappe/frappe-bench/apps/erpnext/erpnext/membership/doctype/id_parsing_tool"'
+	lines = pytesseract.image_to_data(ID, lang='ara', config=tessdata_dir_config)
+	# if data:
+	# 	return lines
+	text = ""
+	for line in lines.splitlines():
+		row = line.split("	")
+		text += row[-1]
+	text = text[4:]
+	return text

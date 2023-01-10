@@ -31,15 +31,18 @@ def remove_newline(txt):
 
 
 def form(front_path, back_path):
+
     image = Image.open("empty_form.jpg")
     integrate.front_read(front_path)
     integrate.back_read(back_path)
     dict = {}
 
     name = remove_newline(integrate.name)
-    dict['name']=name
+    dict['name'] = name
 
     id = integrate.IDNumber
+    # print(type(integrate.IDNumber))
+
     dict['id'] = id
 
     address = remove_newline(integrate.add)
@@ -48,18 +51,14 @@ def form(front_path, back_path):
     birthdata = integrate.BDate
     dict['birthdate'] = birthdata
 
-
     place_of_birth = integrate.govern
     dict['place_of_birth'] = place_of_birth
-
 
     gender = integrate.gender
     dict['gender'] = gender
 
-
     religion = integrate.religion
     dict['religion'] = religion
-
 
     social_status = integrate.a3zb
     dict['social_status'] = social_status
