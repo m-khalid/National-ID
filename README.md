@@ -31,5 +31,3 @@ sudo ./makefile
 # Test set
 https://drive.google.com/open?id=1gmZd9nh37YwWUn7yeGeQdCAaWFBep9jD
 
-# YouTube tutorial
-https://www.youtube.com/watch?v=xUIy5EQ3R6s&t
